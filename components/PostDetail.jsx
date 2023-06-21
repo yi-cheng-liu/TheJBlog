@@ -20,6 +20,22 @@ const PostDetail = ({ post }) => {
     }
 
     switch (type) {
+      case "heading-one":
+        return (
+          <h1 key={index} className="text-xl font-semibold mb-4">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </h1>
+        );
+      case "heading-two":
+        return (
+          <h2 key={index} className="text-xl font-semibold mb-4">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </h2>
+        );
       case "heading-three":
         return (
           <h3 key={index} className="text-xl font-semibold mb-4">
@@ -28,14 +44,7 @@ const PostDetail = ({ post }) => {
             ))}
           </h3>
         );
-      case "paragraph":
-        return (
-          <p key={index} className="mb-8">
-            {modifiedText.map((item, i) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </p>
-        );
+
       case "heading-four":
         return (
           <h4 key={index} className="text-md font-semibold mb-4">
@@ -43,6 +52,14 @@ const PostDetail = ({ post }) => {
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </h4>
+        );
+      case "paragraph":
+        return (
+          <p key={index} className="mb-8">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </p>
         );
       case "image":
         return (
