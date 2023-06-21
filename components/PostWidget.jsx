@@ -26,14 +26,14 @@ const PostWidget = ({ categories, slug }) => {
       <h3 className="text-xl mb-4 font-semibold border-b pb-4">
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
-      {relatedPosts.map((post) => (
+      {[...relatedPosts].reverse().map((post) => (
         <div key={post.title} className="flex items-center w-full mb-3">
           {/* image */}
           <div className="w-16 flex-none">
             <img
               alt={post.title}
-              height="60px"
-              width="60px"
+              height="100px"
+              width="100px"
               className="align-middle rounded-lg"
               src={post.featuredImage.url}
             />
@@ -42,7 +42,7 @@ const PostWidget = ({ categories, slug }) => {
             <Link
               href={`/post/${post.slug}`}
               key={post.title}
-              className="text-md font-normal hover:text-red-500"
+              className="text-md font-normal hover:text-orange-500"
             >
               {post.title}
             </Link>

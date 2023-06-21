@@ -6,23 +6,32 @@ const PostDetail = ({ post }) => {
     let modifiedText = text;
 
     if (obj) {
-      if (obj.bold) {
-        modifiedText = <b key={index}>{text}</b>;
-      }
+      let elements = Array.isArray(text) ? text : [text];
 
-      if (obj.italic) {
-        modifiedText = <em key={index}>{text}</em>;
-      }
+      elements = elements.map((el, i) => {
+        let formattedEl = el;
 
-      if (obj.underline) {
-        modifiedText = <u key={index}>{text}</u>;
-      }
+        if (obj.bold) {
+          formattedEl = <b key={`${index}-b-${i}`}>{formattedEl}</b>;
+        }
+
+        if (obj.italic) {
+          formattedEl = <em key={`${index}-em-${i}`}>{formattedEl}</em>;
+        }
+
+        if (obj.underline) {
+          formattedEl = <u key={`${index}-u-${i}`}>{formattedEl}</u>;
+        }
+
+        return formattedEl;
+      });
+
     }
 
     switch (type) {
       case "heading-one":
         return (
-          <h1 key={index} className="text-xl font-semibold mb-4">
+          <h1 key={index} className="text-3xl font-semibold mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -30,7 +39,7 @@ const PostDetail = ({ post }) => {
         );
       case "heading-two":
         return (
-          <h2 key={index} className="text-xl font-semibold mb-4">
+          <h2 key={index} className="text-2xl font-semibold mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -53,6 +62,22 @@ const PostDetail = ({ post }) => {
             ))}
           </h4>
         );
+      case "heading-five":
+        return (
+          <h5 key={index} className="text-sm font-semibold mb-4">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </h5>
+        );
+      case "heading-six":
+        return (
+          <h6 key={index} className="text-xs font-semibold mb-4">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </h6>
+        );
       case "paragraph":
         return (
           <p key={index} className="mb-8">
@@ -60,6 +85,22 @@ const PostDetail = ({ post }) => {
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
           </p>
+        );
+      case "bold":
+        return (
+          <strong key={index} className="mb-8">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </strong>
+        );
+      case "italic":
+        return (
+          <em key={index} className="mb-8">
+            {modifiedText.map((item, i) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </em>
         );
       case "image":
         return (
@@ -71,6 +112,38 @@ const PostDetail = ({ post }) => {
             src={obj.src}
           />
         );
+
+      case "code":
+        return <code key={index}>{modifiedText}</code>;
+
+      case "back-quote":
+        return <blockquote key={index}>{modifiedText}</blockquote>;
+
+      case "link":
+        return (
+          <a key={index} href={obj.href}>
+            {modifiedText}
+          </a>
+        );
+
+      case "numbered-list":
+        return (
+          <ol key={index}>
+            {modifiedText.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ol>
+        );
+
+      case "bulleted-list":
+        return (
+          <ul key={index}>
+            {modifiedText.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        );
+
       default:
         return modifiedText;
     }
@@ -97,7 +170,7 @@ const PostDetail = ({ post }) => {
               height="30px"
               width="30px"
             />
-            <p className="inline align-middle ml-2 text-gray-800 lg:text-lg text-sm hover:text-red-500">
+            <p className="inline align-middle ml-2 text-gray-800 lg:text-lg text-sm">
               {post.author.name}
             </p>
           </div>
