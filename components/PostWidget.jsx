@@ -22,6 +22,7 @@ const PostWidget = ({ categories, slug }) => {
   console.log(relatedPosts)
 
   return (
+    relatedPosts.length > 0 &&
     <div className="bg-white shadow-lg rounded-2xl p-5 mb-8">
       <h3 className="text-xl mb-4 font-semibold border-b pb-4">
         {slug ? "Related Posts" : "Recent Posts"}
