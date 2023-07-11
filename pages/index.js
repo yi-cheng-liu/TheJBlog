@@ -13,7 +13,7 @@ export default function Home({ posts }) {
       <div className="grid lg:grid-cols-12 grid-cols-1 gap-12">
         <div className="lg:col-span-8 col-span-1">
           {[...posts].reverse().map((post) => (
-            <PostCard key={post.title} post={post.node} />
+            <PostCard post={post.node} />
           ))}
         </div>
         <div className="lg:col-span-4 col-span-1">
