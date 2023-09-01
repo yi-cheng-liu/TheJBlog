@@ -1,4 +1,3 @@
-import autoprefixer from 'autoprefixer';
 import React from 'react'
 
 const Author = ({author}) => {
@@ -9,7 +8,7 @@ const Author = ({author}) => {
           <img
             alt={author.name}
             src={author.photo.url}
-            unoptimized
+            unoptimized={true.toString()}
             className="rounded-full bg-white p-2 w-full"
           />
           <h2 className="flex mt-2 text-white text-3xl font-bold">
