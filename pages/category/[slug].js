@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { getCategories, getCategoryPost } from "../../services";
@@ -6,6 +6,10 @@ import { PostCard, Categories, Loader } from "../../components";
 
 const CategoryPost = ({ posts }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    document.title = "The J Blog";
+  }, [])
 
   if (router.isFallback) {
     return <Loader />;

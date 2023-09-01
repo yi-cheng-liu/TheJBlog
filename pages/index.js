@@ -1,10 +1,8 @@
 import Head from 'next/head'
-import { useState } from 'react'
 import { PostCard, PostWidget, Categories } from '../components'
 import { getPosts } from '../services'
 
 export default function Home({ posts }) {
-  const [currentPage, setCurrentPage] = useState(1)
   return (
     <div className="container mx-auto px-6 mb-8">
       <Head>
@@ -15,7 +13,7 @@ export default function Home({ posts }) {
       <div className="grid lg:grid-cols-12 grid-cols-1 gap-12">
         <div className="lg:col-span-8 col-span-1">
           {[...posts].reverse().map((post) => (
-            <PostCard post={post.node} />
+            <PostCard key={post.node.id} post={post.node} />
           ))}
         </div>
         <div className="lg:col-span-4 col-span-1">
@@ -26,7 +24,7 @@ export default function Home({ posts }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export async function getStaticProps() {
