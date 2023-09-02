@@ -13,7 +13,7 @@ const PostDetail = ({ post }) => {
     'heading-four': { tag: 'h4', className: 'text-md font-semibold mb-5' },
     'heading-five': { tag: 'h5', className: 'text-sm font-semibold mb-5' },
     'heading-six': { tag: 'h6', className: 'text-xs font-semibold mb-5' },
-    paragraph: { tag: 'p', className: 'mb-5' },
+    'paragraph': { tag: 'p', className: 'mb-5' },
     'code-block': { tag: 'pre', className: 'bg-gray-300 p-3 rounded-lg mb-5' },
     'block-quote': {
       tag: 'blockquote',
@@ -109,6 +109,19 @@ const PostDetail = ({ post }) => {
       )
     }
 
+    if (type === 'image') {
+      return (
+        <img
+          key={index}
+          src={obj.src}
+          alt={obj.alt || 'Image'}
+          width={obj.width || 'auto'}
+          height={obj.height || 'auto'}
+          className="your-custom-classes-here"
+        />
+      )
+    }
+
     let elements = Array.isArray(text) ? text : [text]
     elements = elements.map((el, i) => {
       if (obj && obj.type === 'link') {
@@ -181,7 +194,7 @@ const PostDetail = ({ post }) => {
       </div>
       <div className="px-4 lg:px-0">
         {/* Author and date info here */}
-        <h1 className="mb-4 lg:text-3xl text-2xl font-semibold text-center">
+        <h1 className="mb-4 text-3xl font-semibold text-center">
           {post.title}
         </h1>
         {post.content.raw.children.map((typeObj, index) => {

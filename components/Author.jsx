@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Author = ({author}) => {
+const Author = ({ author }) => {
   return (
     <div className="text-center p-6 relative rounded-2xl bg-black bg-opacity-25">
       <div className="flex flex-row items-start w-full">
