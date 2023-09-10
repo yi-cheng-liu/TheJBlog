@@ -13,17 +13,13 @@ import {
 
 const PostDetails = ({ post }) => {
   const router = useRouter()
-  if (router.isFallback || notFound) {
+  if (router.isFallback) {
     return <Loader />
   }
 
   useEffect(() => {
     document.title = post.title
   }, [])
-
-  if (notFound) {
-    return <div>Post not found</div>
-  }
 
   return (
     <div className="container mx-auto px-6 mb-4">
@@ -59,12 +55,6 @@ export async function getStaticPaths({ params }) {
 
 export async function getStaticProps({ params }) {
   const data = await getPostDetails(params.slug)
-
-  if (!data) {
-    return {
-      notFound: true
-    }
-  }
 
   return {
     props: { post: data }
