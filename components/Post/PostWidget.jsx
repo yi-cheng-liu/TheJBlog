@@ -23,7 +23,7 @@ const PostWidget = ({ categories, slug }) => {
     relatedPosts.length > 0 && (
       <div className="bg-white shadow-lg rounded-2xl p-5 mb-8">
         <h3 className="text-xl mb-4 font-semibold border-b pb-4">
-          {slug ? 'Related Posts' : 'Recent Posts'}
+          {slug ? 'Related Posts' : 'Featured Posts'}
         </h3>
         {[...relatedPosts].reverse().map((post) => (
           <div

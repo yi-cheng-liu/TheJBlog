@@ -28,9 +28,9 @@ const Header = () => {
         <div className="flex flex-row md:float md:contents">
           <div className="flex md:float-right text-lg text-white font-semibold gap-4 items-center">
             {/* Appointment */}
-            <div className="flex cursor-pointer hover:text-orange-500">
+            {/* <div className="flex cursor-pointer hover:text-orange-500">
               <Link href={"/appointment"}>Appointment</Link>
-            </div>
+            </div> */}
 
             {/* Category */}
             <div className="flex cursor-pointer items-center">
@@ -68,9 +68,9 @@ const Header = () => {
             </div>
 
             {/* About me */}
-            <div className="flex cursor-pointer hover:text-orange-500">
+            {/* <div className="flex cursor-pointer hover:text-orange-500">
               <Link href={"/about"}>About</Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
