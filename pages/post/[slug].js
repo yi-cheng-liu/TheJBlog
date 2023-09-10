@@ -13,13 +13,17 @@ import {
 
 const PostDetails = ({ post }) => {
   const router = useRouter()
-  if (router.isFallback) {
+  if (router.isFallback || notFound) {
     return <Loader />
   }
 
   useEffect(() => {
     document.title = post.title
   }, [])
+
+  if (notFound) {
+    return <div>Post not found</div>
+  }
 
   return (
     <div className="container mx-auto px-6 mb-4">
@@ -43,14 +47,7 @@ const PostDetails = ({ post }) => {
 
 export default PostDetails
 
-export async function getStaticProps({ params }) {
-  const data = await getPostDetails(params.slug)
-
-  return {
-    props: { post: data }
-  }
-}
-
+// Runs at Build time to pre-render page
 export async function getStaticPaths({ params }) {
   const posts = await getPosts()
 
@@ -59,3 +56,18 @@ export async function getStaticPaths({ params }) {
     fallback: true
   }
 }
+
+export async function getStaticProps({ params }) {
+  const data = await getPostDetails(params.slug)
+
+  if (!data) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: { post: data }
+  }
+}
+

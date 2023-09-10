@@ -4,7 +4,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export const getPosts = async () => {
   const query = gql`
-    query MyQuery {
+    query GetPosts {
       postsConnection {
         edges {
           cursor
@@ -41,42 +41,68 @@ export const getPosts = async () => {
 
 export const getRecentPosts = async () => {
   const query = gql`
-    query getPostDetails(){
+    query GetRecentPosts(){
       posts(
         orderBy: createdAt_ASC
         last: 10
       ){
         title
+        slug
         featuredImage{
           url
         }
         createdAt
-        slug
       }
     }
-  `;
+  `
 
   const result = await request(graphqlAPI, query);
 
   return result.posts;
 };
 
-export const getSimilarPosts = async (categories, slug) => {
+export const getFeaturedPosts = async () => {
   const query = gql`
-    query GetPostDetails($slug: String!, $categories: [String!]) {
+    query GetFeaturedPosts(){
       posts(
-        where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
+        where: {featuredPost: true}
         last: 10
-      ) {
+        ) {
         title
+        slug
         featuredImage {
           url
         }
         createdAt
-        slug
       }
     }
-  `;
+    `
+  const result = await request(graphqlAPI, query);
+
+  return result.posts
+};
+
+// Fetches posts that are similar to a given post
+// Do not include the post itself, and fits in one category
+export const getSimilarPosts = async (categories, slug) => {
+  const query = gql`
+    query GetSimilarPosts($slug: String!, $categories: [String!]) {
+      posts(
+        where: {
+          slug_not: $slug
+          AND: { categories_some: { slug_in: $categories } }
+        }
+        last: 10
+      ) {
+        title
+        slug
+        featuredImage {
+          url
+        }
+        createdAt
+      }
+    }
+  `
   const result = await request(graphqlAPI, query, { categories, slug });
 
   return result.posts;
@@ -84,7 +110,7 @@ export const getSimilarPosts = async (categories, slug) => {
 
 export const getCategories = async () => {
   const query = gql`
-    query getCategories(){
+    query GetCategories(){
       categories{
         name
         slug
